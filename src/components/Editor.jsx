@@ -1,5 +1,5 @@
 import "./Editor.css";
-import Button from "./button.jsx";
+import Button from "./Button.jsx";
 import Emotionitem from "./Emotionitem.jsx";
 import { useState, useEffect, useCallback } from "react";
 import { emotionList, getFormattedDate } from "../utils.jsx";
