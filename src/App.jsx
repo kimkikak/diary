@@ -29,8 +29,13 @@ function reducer(state, action) {
       return newState;
     }
     case "DELETE": {
-      return state.filter((it) => String(it.id) !== String(action.targetId));
+      const newState = state.filter(
+        (it) => String(it.id) !== String(action.targetId)
+      );
+      localStorage.setItem("diary", JSON.stringify(newState));
+      return newState;
     }
+
     case "INIT": {
       return action.data;
     }
@@ -67,21 +72,24 @@ function App() {
   const idRef = useRef(3);
 
   useEffect(() => {
-    // dispatch({
-    //   type: "INIT",
-    //   data: mockData,
-    // });
-    // setIsDataLoaded(true);
     const rawData = localStorage.getItem("diary");
-    const localData = JSON.parse(rawData);
 
-    if (localData.length === 0) {
+    let localData = [];
+    try {
+      localData = JSON.parse(rawData) || []; // 파싱 실패 시 빈 배열로 대체
+    } catch (error) {
+      console.error("Failed to parse localStorage data:", error);
+      localData = [];
+    }
+
+    if (!Array.isArray(localData) || localData.length === 0) {
       setIsDataLoaded(true);
       return;
     }
 
+    // 데이터 정렬 및 초기화
     localData.sort((a, b) => Number(b.id) - Number(a.id));
-    idRef.current = localData[0].id;
+    idRef.current = localData[0]?.id + 1 || 1;
 
     dispatch({ type: "INIT", data: localData });
     setIsDataLoaded(true);
