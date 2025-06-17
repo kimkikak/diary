@@ -140,7 +140,7 @@ function App() {
           }}
         >
           <div className="App">
-            <h1>감정 일기장</h1>
+            {/* <h1>감정 일기장</h1> */}
             <Routes>
               <Route path="/" element={<Home />} />
               <Route path="/diary/:id" element={<Diary />} />
