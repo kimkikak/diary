@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import Button from "../components/button";
+import Button from "../components/Button";
 import Header from "../components/Header";
 import Editor from "../components/Editor";
 import { DiaryDispatchContext } from "../../context/DiaryContext";
